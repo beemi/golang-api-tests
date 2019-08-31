@@ -1,0 +1,4 @@
+# Stagging Environment Configuration
+
+postcode:
+  host: "https://api.postcodes.io"

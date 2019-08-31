@@ -6,7 +6,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/xeipuuv/gojsonschema"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"strings"
 	"testing"
 )
@@ -34,7 +36,13 @@ func TestPostCodeLatLong(t *testing.T) {
 	body, err := ioutil.ReadAll(res.Body)
 	fmt.Println(string(body))
 
-	schemaLoader := gojsonschema.NewReferenceLoader("file:///Users/rajbeemi/projects/personal/postcode-io-tests-golang/schemas/postcode_lat_long.json")
+	// JSON schema validation
+	//schemaLoader := gojsonschema.NewReferenceLoader("file:///Users/rajbeemi/projects/personal/postcode-io-tests-golang/schemas/postcode_lat_long.json")
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	schemaLoader := gojsonschema.NewReferenceLoader("file://" + dir + "/schemas/postcode_lat_long.json")
 	loader := gojsonschema.NewStringLoader(string(body))
 	result, err := gojsonschema.Validate(schemaLoader, loader)
 	if err != nil {

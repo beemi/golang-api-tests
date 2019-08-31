@@ -7,7 +7,7 @@
       "additionalProperties": false,
       "properties": {
         "status": {
-          "type": "string"
+          "type": "integer"
         },
         "result": {
           "$ref": "#/definitions/Result"

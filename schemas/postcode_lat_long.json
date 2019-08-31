@@ -1,0 +1,169 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PostCodeIO",
+  "definitions": {
+    "PostCodeIO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "result": {
+          "$ref": "#/definitions/Result"
+        }
+      },
+      "required": [
+        "result",
+        "status"
+      ],
+      "title": "PostCodeIO"
+    },
+    "Result": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "postcode": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "integer"
+        },
+        "eastings": {
+          "type": "integer"
+        },
+        "northings": {
+          "type": "integer"
+        },
+        "country": {
+          "type": "string"
+        },
+        "nhs_ha": {
+          "type": "string"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "latitude": {
+          "type": "number"
+        },
+        "european_electoral_region": {
+          "type": "string"
+        },
+        "primary_care_trust": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "lsoa": {
+          "type": "string"
+        },
+        "msoa": {
+          "type": "string"
+        },
+        "incode": {
+          "type": "string"
+        },
+        "outcode": {
+          "type": "string"
+        },
+        "parliamentary_constituency": {
+          "type": "string"
+        },
+        "admin_district": {
+          "type": "string"
+        },
+        "parish": {
+          "type": "string"
+        },
+        "admin_county": {
+          "type": "null"
+        },
+        "admin_ward": {
+          "type": "string"
+        },
+        "ced": {
+          "type": "null"
+        },
+        "ccg": {
+          "type": "string"
+        },
+        "nuts": {
+          "type": "string"
+        },
+        "codes": {
+          "$ref": "#/definitions/Codes"
+        }
+      },
+      "required": [
+        "admin_county",
+        "admin_district",
+        "admin_ward",
+        "ccg",
+        "ced",
+        "codes",
+        "country",
+        "eastings",
+        "european_electoral_region",
+        "incode",
+        "latitude",
+        "longitude",
+        "lsoa",
+        "msoa",
+        "nhs_ha",
+        "northings",
+        "nuts",
+        "outcode",
+        "parish",
+        "parliamentary_constituency",
+        "postcode",
+        "primary_care_trust",
+        "quality",
+        "region"
+      ],
+      "title": "Result"
+    },
+    "Codes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "admin_district": {
+          "type": "string"
+        },
+        "admin_county": {
+          "type": "string"
+        },
+        "admin_ward": {
+          "type": "string"
+        },
+        "parish": {
+          "type": "string"
+        },
+        "parliamentary_constituency": {
+          "type": "string"
+        },
+        "ccg": {
+          "type": "string"
+        },
+        "ced": {
+          "type": "string"
+        },
+        "nuts": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "admin_county",
+        "admin_district",
+        "admin_ward",
+        "ccg",
+        "ced",
+        "nuts",
+        "parish",
+        "parliamentary_constituency"
+      ],
+      "title": "Codes"
+    }
+  }
+}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/beemi/postcode-io-tests-golang/internal/config"
 	"github.com/stretchr/testify/assert"
+	"github.com/xeipuuv/gojsonschema"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -32,4 +33,20 @@ func TestPostCodeLatLong(t *testing.T) {
 	assert.Equal(t, 200, res.StatusCode, "Get Postcode lat long Api failed")
 	body, err := ioutil.ReadAll(res.Body)
 	fmt.Println(string(body))
+
+	schemaLoader := gojsonschema.NewReferenceLoader("file:///Users/rajbeemi/projects/personal/postcode-io-tests-golang/schemas/postcode_lat_long.json")
+	loader := gojsonschema.NewStringLoader(string(body))
+	result, err := gojsonschema.Validate(schemaLoader, loader)
+	if err != nil {
+		panic(err.Error())
+	}
+	if result.Valid() {
+		fmt.Printf("The Document is valid \n")
+	} else {
+		fmt.Printf("The document is not valid. see errors :\n")
+		for _, desc := range result.Errors() {
+			fmt.Printf("- %s\n", desc)
+		}
+	}
+
 }

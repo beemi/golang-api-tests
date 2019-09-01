@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/beemi/postcode-io-tests-golang/internal/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/xeipuuv/gojsonschema"
@@ -13,6 +12,9 @@ import (
 	"testing"
 )
 
+//TestPostCodeLatLong test validate lat long validation
+//Validate Json schema validation using gojsonschema package
+//Assert response using testify package
 func TestPostCodeLatLong(t *testing.T) {
 	url := config.PostCodeIOEndPoint() + "/postcodes/RM17%206EY"
 	method := "GET"
@@ -21,40 +23,34 @@ func TestPostCodeLatLong(t *testing.T) {
 
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, payload)
+	//assert ensure no error
+	assert.NoError(t, err)
 
-	if err != nil {
-		fmt.Println(err)
-	}
 	req.Header.Add("Content-Type", "application/json")
 
 	res, err := client.Do(req)
-	if err != nil {
-		assert.Fail(t, "Error while client sending request")
-	}
+	assert.NoError(t, err)
+
 	defer res.Body.Close()
 	assert.Equal(t, 200, res.StatusCode, "Get Postcode lat long Api failed")
 	body, err := ioutil.ReadAll(res.Body)
-	fmt.Println(string(body))
+	log.Printf("Response Body: \n %s", string(body))
 
 	// JSON schema validation
-	//schemaLoader := gojsonschema.NewReferenceLoader("file:///Users/rajbeemi/projects/personal/postcode-io-tests-golang/schemas/postcode_lat_long.json")
 	dir, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
+	assert.NoError(t, err)
 	schemaLoader := gojsonschema.NewReferenceLoader("file://" + dir + "/schemas/postcode_lat_long.json")
 	loader := gojsonschema.NewStringLoader(string(body))
 	result, err := gojsonschema.Validate(schemaLoader, loader)
-	if err != nil {
-		panic(err.Error())
-	}
-	if result.Valid() {
-		fmt.Printf("The Document is valid \n")
-	} else {
-		fmt.Printf("The document is not valid. see errors :\n")
-		for _, desc := range result.Errors() {
-			fmt.Printf("- %s\n", desc)
-		}
-	}
+	assert.NoError(t, err)
 
+	if result.Valid() {
+		log.Printf("The Document is valid \n")
+	} else {
+		log.Printf("The document is not valid. see errors :\n")
+		for _, desc := range result.Errors() {
+			log.Printf("- %s\n", desc)
+		}
+		t.Fail()
+	}
 }

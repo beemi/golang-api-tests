@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
+	"log"
 	"os"
 	"regexp"
 )
@@ -28,13 +29,13 @@ func init() {
 	path := workdir + "/configs"
 	viper.AddConfigPath(path)
 	viper.SetConfigName(os.Getenv("ENV"))
-	fmt.Println("work dir config.init() called")
+	log.Printf("work dir config.init() called")
 	err := viper.ReadInConfig()
 	if err != nil {
-		fmt.Println("Full file path", path)
-		panic(fmt.Errorf("Failed to read %s configuration", os.Getenv("ENV")))
+		log.Printf("Full file path %v", path)
+		log.Printf("Failed to read %s configuration", os.Getenv("ENV"))
 	}
-	fmt.Printf("Configuration: ENV = %s, WORK_DIR = %s",
+	log.Printf("Configuration: ENV = %s, WORK_DIR = %s",
 		workdir,
 	)
 }

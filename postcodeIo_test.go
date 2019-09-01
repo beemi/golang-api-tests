@@ -108,5 +108,4 @@ func TestPostCodeLatLong(t *testing.T) {
 	//validate response objects with assertions
 	assert.Equal(t, 200, postCodeResponse.Status)
 	assert.Equal(t, "RM17 6E", postCodeResponse.Result.Postcode, "result.postcode value is wrong")
-
 }

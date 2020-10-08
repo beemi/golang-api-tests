@@ -1,4 +1,4 @@
-###### POSTCODE IO GOLANG API TESTING
+###### JAITECH LTD GOLANG API TESTING
 
 ###### How to run tests
 

@@ -35,7 +35,7 @@ func init() {
 		log.Printf("Full file path %v", path)
 		log.Printf("Failed to read %s configuration", os.Getenv("ENV"))
 	}
-	log.Printf("Configuration: ENV = %s, WORK_DIR = %s",
+	log.Printf("Configuration: ENV = %s, WORK_DIR = %s", os.Getenv("ENV"),
 		workdir,
 	)
 }

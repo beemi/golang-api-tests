@@ -5,6 +5,7 @@ import (
 	"github.com/beemi/postcode-io-tests-golang/internal/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/xeipuuv/gojsonschema"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -13,9 +14,9 @@ import (
 	"testing"
 )
 
-//TestPostCodeLatLong test validate lat long validation
-//Validate Json schema validation from file from local disk using gojsonschema package
-//Assert response using testify package
+// TestPostCodeLatLong test validate lat long validation
+// Validate Json schema validation from file from local disk using gojsonschema package
+// Assert response using testify package
 func TestTablePostCodeLatLong(t *testing.T) {
 
 	testCases := []struct {
@@ -44,7 +45,12 @@ func TestTablePostCodeLatLong(t *testing.T) {
 		res, err := client.Do(req)
 		assert.NoError(t, err)
 
-		defer res.Body.Close()
+		defer func(Body io.ReadCloser) {
+			err := Body.Close()
+			if err != nil {
+
+			}
+		}(res.Body)
 		assert.Equal(t, 200, res.StatusCode, "Get Postcode lat long Api failed")
 		body, err := ioutil.ReadAll(res.Body)
 		log.Printf("Response Body: \n %s", string(body))
@@ -69,7 +75,7 @@ func TestTablePostCodeLatLong(t *testing.T) {
 
 		var postCodeResponse PostCodeIO
 		//Json Unmarshal
-		err = json.Unmarshal([]byte(string(body)), &postCodeResponse)
+		err = json.Unmarshal(body, &postCodeResponse)
 		assert.NoError(t, err)
 		//validate response objects with assertions
 		assert.Equal(t, 200, postCodeResponse.Status)

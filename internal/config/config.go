@@ -23,7 +23,7 @@ func init() {
 	fmt.Println("config.init() called")
 	// Only auto init if it is in real deployment
 	if _, exist = os.LookupEnv("ENV"); !exist {
-		panic("Environment variable ENV must be set")
+		panic("ENV is not set, please set ENV to dev, test or prod")
 	}
 
 	path := workdir + "/configs"

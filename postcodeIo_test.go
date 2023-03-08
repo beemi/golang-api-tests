@@ -6,7 +6,6 @@ import (
 	"github.com/beemi/postcode-io-tests-golang/internal/config"
 	"github.com/stretchr/testify/assert"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
@@ -90,14 +89,14 @@ func TestPostCodeLatLong(t *testing.T) {
 		}
 	}(res.Body)
 	assert.Equal(t, 200, res.StatusCode, "Get Postcode lat long Api failed")
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	log.Printf("Response Body: \n %s", string(body))
 
 	//assert ensure no error
 	assert.NoError(t, err)
 	var postCodeResponse PostCodeIO
 	//Json Unmarshal
-	err = json.Unmarshal([]byte(body), &postCodeResponse)
+	err = json.Unmarshal(body, &postCodeResponse)
 	assert.NoError(t, err)
 	//validate response objects with assertions
 	assert.Equal(t, 200, postCodeResponse.Status)

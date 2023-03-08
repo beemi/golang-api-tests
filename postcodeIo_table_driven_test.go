@@ -6,7 +6,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/xeipuuv/gojsonschema"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -52,7 +51,7 @@ func TestTablePostCodeLatLong(t *testing.T) {
 			}
 		}(res.Body)
 		assert.Equal(t, 200, res.StatusCode, "Get Postcode lat long Api failed")
-		body, err := ioutil.ReadAll(res.Body)
+		body, err := io.ReadAll(res.Body)
 		log.Printf("Response Body: \n %s", string(body))
 
 		// JSON schema validation

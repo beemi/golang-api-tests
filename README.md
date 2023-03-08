@@ -1,6 +1,6 @@
 # golang-postcode-latlong
 
-This repository contains API tests for postcode.io using [go](https://go.dev/) and [ginkgo](https://onsi.github.io/ginkgo/)
+This repository contains API tests for postcode.io using [go](https://go.dev/) and [testing](https://pkg.go.dev/testing)
 
 ###### How to run tests
 
